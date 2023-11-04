@@ -9,12 +9,9 @@ const userNames = [
   "Рудко Андрій Опанасович",
 ];
 let initials = [];
-const sortedNames = userNames.sort();
-const strNames = sortedNames.join(' ');
-const arrNames = strNames.split(' ');
-const firstLetters = arrNames.map(function(item) {
-  return item[0];
-});
+const firstLetters = userNames.sort().join(' ').split(' ').map(function(item) {
+    return item[0];
+  });
 
 for (let i = 0; i < firstLetters.length; i += 3) {
   initials.push(`${firstLetters[i]}.${firstLetters[i+1]}.${firstLetters[i+2]}.`);
@@ -44,15 +41,12 @@ console.log(initials); // [ "Г.П.А.", "П.О.І.", "Р.А.О."]
 // умовна конструкція
 const userNames = ['Петро', 'Емма', 'Юстин', 'Ілля', 'Марта', 'Яна', 'Василь', 'Антон', 'Олена'];
 let filteredNames = [];
-const vowels = ['А', 'Е', 'Є', 'И', 'І', 'Ї', 'О', 'У', 'Ю', 'Я'];
+const vowels = 'АЕЄИІЇОУЮЯ';
 for (let i = 0; i < userNames.length; i++) {
-    for (let x = 0; x < vowels.length; x++) {
-       if (vowels[x] === userNames[i][0]) {
-        filteredNames.push(userNames[i]);
-       }
-    }
+  if (vowels.indexOf(userNames[i][0]) >= 0) {
+    filteredNames.push(userNames[i]);
+  }
 }
-
 
 console.log(filteredNames); // ['Емма', 'Юстин', 'Ілля', 'Яна', 'Антон', 'Олена']
 
@@ -73,12 +67,7 @@ console.log(filteredNames); // ['Емма', 'Юстин', 'Ілля', 'Яна', 
 
 const currentMaxValue = 4589;
 let reverseMaxValue;
-
-const currentMaxValueString = currentMaxValue.toString();
-const currentMaxValueArr = currentMaxValueString.split("");
-const reversedMaxValueArr = currentMaxValueArr.reverse();
-const reversedMaxValueString = reversedMaxValueArr.join("");
-reverseMaxValue = Math.floor(reversedMaxValueString);
+reverseMaxValue = Math.floor(currentMaxValue.toString().split("").reverse().join(""));
 
 console.log(reverseMaxValue); // 9854
 console.log(typeof reverseMaxValue); // 'number'
