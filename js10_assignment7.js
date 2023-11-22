@@ -77,7 +77,7 @@ setTimeout(securedSelfIntroduce, 1000); // виведе коректний ре�
 setTimeout(securedSelfPrognose, 2000); // виведе коректний результат
 setTimeout(securedSelfDescribeMyMood, 3000); // виведе коректний результат
 
-// Task 5
+// Task 5 тут до кінця не виходить 
 
 function someFunction(a, b) {
 	console.log(a * b);
@@ -86,7 +86,7 @@ function someFunction(a, b) {
 function slower(func, seconds) {
 	console.log('Chill out, you will get you result in 5 seconds');
 	return function(){
-		setTimeout(func.apply(this, a, b), seconds * 1000);
+		setTimeout(func.apply(this, a, b), seconds * 1000); 
 	};
 };
 
