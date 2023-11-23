@@ -85,9 +85,11 @@ function someFunction(a, b) {
 
 function slower(func, seconds) {
 	console.log('Chill out, you will get you result in 5 seconds');
-	return function(){
-		setTimeout(func.apply(this, a, b), seconds * 1000); 
-	};
+	return function(...args){
+		setTimeout(() => {
+			func(...args)}, seconds * 1000);
+
+};
 };
 
 let slowedSomeFunction = slower(someFunction, 5); // обгортаєте свою довільну функцію 'someFunction' в декоратор і задає значення вповільнення
