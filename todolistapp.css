@@ -1,0 +1,30 @@
+body {
+  background-color: #fccf55;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #351e10;
+}
+
+.btn {
+  background-color: #185a37;
+  color: #fff6e5;
+}
+
+.delete-btn {
+  background-color: #a30000;
+  color: #fff6e5;
+}
+
+.edit-btn {
+  background-color: #185a37;
+  color: #fff6e5;
+}
+
+.clear-tasks {
+  background-color: #a30000;
+  color: #fff6e5;
+}
