@@ -27,8 +27,6 @@ clearTasksButton.addEventListener("click", removeAllTasks);
 filterInput.addEventListener("input", filterTasks);
 
 function handleItem(event) {
-  console.log("HERE")
-  console.log(event.target.classList)
   if (event.target.classList.contains("delete-btn")) {
     removeTask(event);
   } else if (event.target.classList.contains("edit-btn")) {
@@ -53,7 +51,6 @@ function renderTasks() {
       // сторюємо кнопку для видалення
       const button = document.createElement("button");
       const buttonEdit = document.createElement("button");
-      const span = document.createElement("span");
       // <button type="button" class="btn btn-default btn-sm">
       //     <span class="glyphicon glyphicon-pencil"></span> Pencil 
       //   </button>
@@ -66,10 +63,9 @@ function renderTasks() {
       // додаємо їй клас
       button.classList.add("delete-btn");
       buttonEdit.classList.add("edit-btn");
-      span.innerHTML = "&#x270f;";
+      buttonEdit.innerHTML = "&#x270f;";
 
       // записуємо кнопку після всього, що є всередині елементу списку
-      buttonEdit.append(span);
       li.append(button);
       li.append(buttonEdit);
 
@@ -167,7 +163,6 @@ function editTask(event) {
     console.log("Edit Tasks");
     const tasks = JSON.parse(localStorage.getItem("tasks"));
     const taskIndex = event.target.parentElement.id;
-    console.log(taskIndex);
     tasks[taskIndex] = prompt("Edit", tasks[taskIndex]);
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
