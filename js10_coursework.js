@@ -212,18 +212,3 @@ function durationBetweenDatesWeekends (event, startDate, daysBetweenAmount) {
     return sum;
 };
 
-
-
-//  async function getCountries() {
-//  const countriesList = await fetch(`https://calendarific.com/api/v2/countries?api_key=1xpDK0mpDylUoaSeEIhV9ALGmPxsnyH8`)
-//  console.log(countriesList);
-//  return await countriesList.json();
-// };
-
-// const countries = getCountries();
-// console.log(countries);
-
-// async function holidaysResponce() {
-
-// }
-// const holidaysFinal;
