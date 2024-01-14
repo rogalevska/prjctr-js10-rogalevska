@@ -16,6 +16,7 @@ function handleTab(event) {
         renderTable();
     } else if (event.target.classList.contains("holidayslist")) {
         displayHolidays(event);
+        getCountries(event);
     };
   };
 
@@ -80,6 +81,7 @@ function definePreset(event) {
   submit.addEventListener("click", calcDays);
 
   function calcDays(event) {
+    if (startDateInput.value && endDateInput.value) {
     let dayTypeSelect = document.getElementsByName("dayfilter");
     let dayTypeElem = Array.from(dayTypeSelect).find((radio => radio.checked));
     let dayType = dayTypeElem.value;
@@ -153,6 +155,9 @@ function definePreset(event) {
         storeResultInLocalStorage(value);
       };
       addResult(tableElem, tableElem);
+    } else {
+      displayResultCalc.innerHTML = "Choose dates first.";
+    }
     };
 
 
@@ -210,5 +215,92 @@ function durationBetweenDatesWeekends (event, startDate, daysBetweenAmount) {
         loopDate = new Date(loopDate.setDate(loopDate.getDate() + 1));
     };
     return sum;
+};
+
+
+const countriesOptions = document.getElementById("countries");
+let today = new Date();
+let yearToday = today.toLocaleString("default", { year: "numeric" });
+const buttonHolidays = document.querySelector(".getholidays");
+const msg = document.querySelector('.msg');
+const yearSelector = document.querySelector(".yearrange");
+const holidaysTable = document.querySelector(".resultholidays");
+const sortButton = document.querySelector(".sortdates");
+let holidaysByCountry;
+yearSelector.setAttribute("value", yearToday);
+buttonHolidays.addEventListener("click", getHolidays);
+holidaysTable.addEventListener("click", () => {sortDates(holidaysByCountry)});
+
+countriesOptions.addEventListener("change", enableYearRange);
+function enableYearRange(event) {
+  if(countriesOptions.value) {
+      yearSelector.disabled = false;
+  };
+};
+
+function renderCountries(countriesList) {
+  const countries = countriesList.response.countries;
+  countries.forEach((elem) => {
+    const option = document.createElement("option");
+    const optionValue = option.setAttribute("value", elem["iso-3166"]);
+    option.innerHTML = elem.country_name;
+    countriesOptions.append(option);
+  });
+};
+
+const apiKey = "1xpDK0mpDylUoaSeEIhV9ALGmPxsnyH8";
+
+async function getCountries(event) {
+  try {
+    const response = await fetch(`https://calendarific.com/api/v2/countries?api_key=${apiKey}`);
+    if (!response.ok) {
+      throw new Error("No countries available");
+    };
+    const countriesList = await response.json();
+    renderCountries(countriesList);
+  } catch(e) {
+    msg.innerHTML = e.message;
+  }; 
+};
+
+function displayHolidaysTable(holidaysArr) {
+  holidaysTable.innerHTML = 
+  `<tr>
+  <th>Date <button class="sortdates">Sort</button></th>
+  <th>Holiday Name</th>
+  </tr>`
+  holidaysArr.forEach((elem) => {
+    const tr = document.createElement("tr");
+    const th1 = document.createElement("th");
+    const th2 = document.createElement("th");
+    let holidayDate = new Date(elem.date.iso);
+
+    th1.innerHTML = holidayDate.toDateString().slice(0, 16);
+    th2.innerHTML = elem.name;
+    tr.append(th1);
+    tr.append(th2);
+    holidaysTable.append(tr);
+  });
+}
+
+async function getHolidays(event) {
+  let country = countriesOptions.value;
+  let yearHoliday = yearSelector.value;
+  try {
+    const response1 = await fetch(`https://calendarific.com/api/v2/holidays?&api_key=${apiKey}&country=${country}&year=${yearHoliday}`);
+    if (!response1.ok) {
+      throw new Error("Something went wrong");
+    }
+    const listOfHolidays = await response1.json();
+    holidaysByCountry = listOfHolidays.response.holidays;
+    displayHolidaysTable(holidaysByCountry);
+} catch(e) {
+    msg.innerHTML = e.message;
+  }; 
+};
+
+function sortDates(arr) {
+  arr.reverse();
+  displayHolidaysTable(arr);
 };
 

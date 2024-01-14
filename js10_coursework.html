@@ -6,8 +6,7 @@
 		<link rel="stylesheet" href="js10_coursework.css">
 		<title>Date calculator</title>
 	</head>
-	<body style ="background-color: #fff8e7; font-family: Arial;">
-		<h2>Tabs</h2>
+	<body style ="background-color: #F3FDFE; font-family: Arial;">
 
 <div class="tab">
   <button class="tablinks datescalc">Dates Calculator</button>
@@ -56,12 +55,17 @@
   <h3>Holidays by Countries</h3>
   <p>Choose country and year to receive the list of holidays.</p> 
   <label for="countries">Choose a country:</label>
-  <select name="countries" id="cars">
-    <option value="volvo">Country1</option>
-    <option value="saab">Country2</option>
-    <option value="opel">Country3</option>
-    <option value="audi">Country4</option>
+  <select name="countries" id="countries">
+    <option value="">Choose country</option>
   </select>
+  <p>Choose year: 
+  <input type="number" min="2001" max="2049" class="yearrange" disabled/></p>
+  <p class="errormessege"></p>
+  <span class="msg"></span>
+  <p><button class="getholidays">Submit</button></p>
+  <p><table class="resultholidays">
+    </table>
+  </p>
 </section>
 
 		<script type="text/javascript" src="js10_coursework.js"></script>
