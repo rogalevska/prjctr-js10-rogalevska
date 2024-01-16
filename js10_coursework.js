@@ -7,6 +7,10 @@ const plusMonthButton = document.getElementById("plusmonth");
 const displayResultCalc = document.getElementById("calculationsResult");
 const resultsTable = document.querySelector(".resultstable");
 const tab = document.querySelector(".tab");
+const body = document.body;
+
+displayDates();
+renderTable();
 
 tab.addEventListener("click", handleTab);
 
